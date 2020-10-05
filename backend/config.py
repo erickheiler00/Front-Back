@@ -1,12 +1,14 @@
 # importações 
-from flask import Flask, jsonify 
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy 
 import json
 from os import path,remove
+from flask_cors import CORS
  
  
 # configurações 
 app = Flask(__name__) 
+CORS(app)
 
 # caminho do arquivo de banco de dados 
 caminho = path.dirname(path.abspath(__file__)) 

@@ -1,4 +1,4 @@
-from config import * 
+from config import app, db, jsonify, request 
 from modelo import Filme
  
 @app.route("/") 
@@ -14,3 +14,11 @@ def listar_filmes():
     resposta = jsonify(filmes_em_json)
     resposta.headers.add("Access-Control-Allow-Origin", "*") 
     return resposta    
+
+@app.route("/incluir_filme", methods=['post'])
+def incluir_filme():
+    dados = request.get_json()
+    novo_filme = Filme(**dados)
+    db.session.add(novo_filme)
+    db.session.commit()
+    return {"resultado":'ok'}
