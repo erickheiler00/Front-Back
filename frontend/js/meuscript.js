@@ -17,11 +17,15 @@ $( document ).ready(function() {
 
         function listar_filmes(filmes) {          
             for (var i in filmes) {
-                lin = "<tr>" +
+                lin = '<tr id="linha_'+filmes[i].id+'">' +
                     "<td>" + filmes[i].id + "</td>" +
                     "<td>" + filmes[i].titulo + "</td>" +
                     "<td>" + filmes[i].genero + "</td>" +
                     "<td>" + filmes[i].ano + "</td>" +
+                    '<td><a href=# id="excluir_' + filmes[i].id + '"' +
+                    'class="excluir_filme"><img src="imagens/excluir.jpg"' +
+                    'alt="Excluir filme" title="Excluir filme" height="30"></a>' +
+                    '</td>' +
                     "</tr>";
                 $('#corpoTabelaFilmes').append(lin);              
             }; 
@@ -69,4 +73,30 @@ $( document ).ready(function() {
 
     });
 
+    $(document).on("click", ".excluir_filme", function() {
+        var componente_clicado = $(this).attr('id');
+        var nome_icone = "excluir_";
+        var id_filme = componente_clicado.substring(nome_icone.length);
+        $.ajax({
+            url:'http://localhost:5000/excluir_filme/'+id_filme,
+            type: 'DELETE',
+            dataType: 'json',
+            success: filmeExcluido,
+            error: erroAoExcluir
+        });
+
+        function filmeExcluido (retorno) {
+            if (retorno.resultado == "ok") {
+                $("#linha_" + id_filme).fadeOut(1000, function(){
+                    alert("Filme removido com sucesso!");
+                });
+            } else {
+                alert(retorno.resultado + ":" + retorno.detalhes);
+            }
+        }
+        
+        function erroAoExcluir (retorno) {
+            alert("erro ao excluir dados, verifique o backend: ");
+        }
+    });
 });

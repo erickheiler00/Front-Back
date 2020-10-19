@@ -22,3 +22,14 @@ def incluir_filme():
     db.session.add(novo_filme)
     db.session.commit()
     return {"resultado":'ok'}
+
+@app.route("/excluir_filme/<int:filme_id>", methods=['DELETE']) 
+def excluir_filme(filme_id): 
+    resposta = jsonify({"resultado": "ok", "detalhes": "ok"}) 
+    try: 
+        Filme.query.filter(Filme.id == filme_id).delete() 
+        db.session.commit() 
+    except Exception as e: 
+        resposta = jsonify({"resultado":"erro", "detalhes":str(e)}) 
+    resposta.headers.add("Access-Control-Allow-Origin", "*") 
+    return resposta 
