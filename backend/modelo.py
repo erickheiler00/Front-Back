@@ -21,7 +21,6 @@ class Filme(db.Model):
             "ano": self.ano
         }
 
-
 class AluguelFilme(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     data_aluguel = db.Column(db.String(254)) 
@@ -53,8 +52,6 @@ class Locadora(db.Model):
     filme_id = db.Column(db.Integer, db.ForeignKey(Filme.id)) 
     filme_mais_vendido = db.relationship("Filme")
 
-    
-
     def __str__(self):
         s = f"Locadora {self.nome} localizada em {self.endereco} com telefone {self.telefone}"
         if self.filme_mais_vendido != None:
@@ -78,8 +75,6 @@ class Locadora(db.Model):
             "filme_id": filme_id,
             "filme_mais_vendido": filme_mais_vendido
         }
-
-
 
 # teste 
 if __name__ == "__main__": 

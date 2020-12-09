@@ -34,14 +34,6 @@ def excluir_filme(filme_id):
     resposta.headers.add("Access-Control-Allow-Origin", "*") 
     return resposta 
 
-"""@app.route("/listar_alugueis_realizados")
-def listar_alugueis_realizados():
-    alugueis_realizados = db.session.query(AluguelFilme).all()
-    alugueis_realizados_em_json = [ aluguel_realizado.json() for aluguel_realizado in alugueis_realizados ]
-    resposta = jsonify(alugueis_realizados_em_json)
-    resposta.headers.add("Access-Control-Allow-Origin", "*")
-    return resposta"""
-
 @app.route("/listar/<string:classe>")
 def listar(classe):
     dados = None
