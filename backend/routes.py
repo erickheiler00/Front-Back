@@ -4,7 +4,7 @@ from modelo import Filme, AluguelFilme, Locadora
 
 @app.route("/")
 def main():
-    return 'Sistema de cadastro de filmes.' + '<a href="/listar_filmes">Operação listar</a>'
+    return 'Sistema de cadastro de filmes.' + '<a href="/listar_filmes"> Operação listar</a>'
 
 
 @app.route("/listar_filmes") 
@@ -43,6 +43,14 @@ def excluir_filme(filme_id):
 def listar_aluguel_filme():
     aluguel_filme = db.session.query(AluguelFilme).all()
     lista_jsons = [ x.json() for x in aluguel_filme ]
+    resposta = jsonify(lista_jsons)
+    resposta.headers.add("Access-Control-Allow-Origin", "*") 
+    return resposta 
+
+@app.route("/listar_locadora")
+def listar_locadora():
+    locadora = db.session.query(Locadora).all()
+    lista_jsons = [ x.json() for x in locadora ]
     resposta = jsonify(lista_jsons)
     resposta.headers.add("Access-Control-Allow-Origin", "*") 
     return resposta 

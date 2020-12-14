@@ -1,6 +1,8 @@
 //$( document ).ready(function() {
 
 $(function() {
+    mostrar_conteudo("conteudoInicial");
+
     function exibir_filmes() {
         $.ajax({
             url: 'http://localhost:5000/listar_filmes',
@@ -34,9 +36,10 @@ $(function() {
     }; 
 
     function mostrar_conteudo(identificador) {
-        $("cadastroFilme").addClass("d-none");
+        $("#cadastroFilme").addClass("d-none");
         $("#conteudoInicial").addClass("d-none");
-        $("cadastroAluguelFilme").addClass("d-none");
+        $("#cadastroAluguelFilme").addClass("d-none");
+        $("#cadastroLocadora").addClass("d-none");
         $("#"+identificador).removeClass("d-none");
 
     }
@@ -91,7 +94,7 @@ $(function() {
        }
     });
 
-    mostrar_conteudo("conteudoInicial");
+    
 
     $(document).on("click", ".excluir_filme", function() {
         var componente_clicado = $(this).attr('id');
@@ -162,6 +165,45 @@ $(function() {
 
     $(document).on("click", "#linkListarAluguelFilmeRealizado", function() {
         exibir_alugueis_realizados();
+    });
+
+    function exibir_locadora() {
+        $.ajax({
+            url: 'http://localhost:5000/listar_locadora',
+            method: 'GET',
+            dataType: 'json',
+            success: listar,
+            error: function(problema) {
+                alert("erro ao ler dados, verifique o backend");
+            }
+        });
+    
+
+
+        function listar (locadora) {
+            $('#corpoTabelaLocadora').empty();
+
+            mostrar_conteudo("cadastroLocadora");
+
+                for (var i in locadora) {
+                    lin = '<tr id="linha_locadora'+locadora[i].id+'">)'+
+                        '<td>' + locadora[i].nome + '</td>' +
+                        '<td>' + locadora[i].endereco + '</td>' +
+                        '<td>' + locadora[i].telefone + '</td>' +
+                        '<td>' + locadora[i].filme_mais_vendido + '</td>' +
+                        '<td><a href=# id="excluir_locadora' + locadora[i].id + '"' +
+                        'class="excluir_locadora"><img src="imagens/excluir.jpg"' +
+                        'alt="Excluir locadora" title="Excluir locadora" height="30"></a>' +
+                        '</td>' +
+                        "</tr>";
+                    $('#corpoTabelaLocadora').append(lin);
+                }
+        }
+
+    }
+
+    $(document).on("click", "#linkListarLocadora", function() {
+        exibir_locadora();
     });
 });
 
