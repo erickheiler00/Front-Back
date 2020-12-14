@@ -184,13 +184,13 @@ $(function() {
             $('#corpoTabelaLocadora').empty();
 
             mostrar_conteudo("cadastroLocadora");
-
+                console.log(locadora[0].filme_mais_vendido)
                 for (var i in locadora) {
                     lin = '<tr id="linha_locadora'+locadora[i].id+'">)'+
                         '<td>' + locadora[i].nome + '</td>' +
                         '<td>' + locadora[i].endereco + '</td>' +
                         '<td>' + locadora[i].telefone + '</td>' +
-                        '<td>' + locadora[i].filme_mais_vendido + '</td>' +
+                        '<td>' + locadora[i].filme_mais_vendido.titulo + '</td>' +
                         '<td><a href=# id="excluir_locadora' + locadora[i].id + '"' +
                         'class="excluir_locadora"><img src="imagens/excluir.jpg"' +
                         'alt="Excluir locadora" title="Excluir locadora" height="30"></a>' +
