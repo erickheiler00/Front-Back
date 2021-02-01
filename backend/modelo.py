@@ -141,8 +141,10 @@ if __name__ == "__main__":
     db.session.add(locadora4)
     db.session.add(locadora5)
 
+    db.session.commit()
+
     
-    db.session.commit() 
+     
  
     # exibir filmes, aluguel e locadora 
     print("PRINTS:")
